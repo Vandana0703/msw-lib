@@ -1,18 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import {rest} from 'msw';
-import {setupServer} from 'msw/node';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 
 
 console.log('-----------testing-------')
 
 const handlers = [
-  rest.get('https://jsonplaceholder.typicode.com/posts', (req, res, ctx)=>{
+  rest.get('https://jsonplaceholder.typicode.com/posts', (req, res, ctx) => {
     return res(ctx.json(
       [
-        {id:1,title:'Title1'},
-        {id:2,title:'Title2'},
-        {id:3,title:'Title3'}
+        { id: 1, title: 'Title1' },
+        { id: 2, title: 'Title2' },
+        { id: 3, title: 'Title3' }
       ]
     ))
   }),
@@ -20,14 +20,14 @@ const handlers = [
 
 const server = setupServer(...handlers);
 
-beforeAll(()=>{
+beforeAll(() => {
   server.listen();
 });
 
-afterAll(()=>{
+afterAll(() => {
   server.close();
 });
-afterEach(()=>{
+afterEach(() => {
   server.resetHandlers();
 });
 test('renders learn react link', () => {
